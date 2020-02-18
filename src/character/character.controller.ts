@@ -2,14 +2,19 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { CharacterService } from './character.service';
 import { Character } from './character.model';
 
-@Controller('character')
+@Controller('Characters')
 export class CharacterController {
   constructor(private service: CharacterService) {
   }
 
   @Get()
-  get(@Param() params) {
-    return this.service.findById(params.id);
+  async getAll() {
+    return this.service.getAll();
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: string) {
+    return this.service.getById(id);
   }
 
   @Post()
@@ -17,13 +22,13 @@ export class CharacterController {
     return this.service.create(Character);
   }
 
-  @Put()
-  update(@Body() Character: Character) {
-    return this.service.update(Character);
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() character: Character) {
+    return this.service.update(id, character);
   }
 
   @Delete(':id')
-  remove(@Param() params) {
-    return this.service.remove(params.id);
+  async delete(@Param('id') id: string) {
+    return this.service.delete(id);
   }
 }

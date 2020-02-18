@@ -14,12 +14,20 @@ export class CharacterService {
     return result;
   }
 
-  async findById(id: number) {
+  async getById(id: string) {
   }
 
-  async update(character: Character) {
+  async update(id: string, character: Character) {
+    await this.characterModel.updateOne({ _id: id}, character).exec()
+    return this.getById(id);
   }
 
-  async remove(character: Character) {
+  async delete(id: string) {
+    return await this.characterModel.deleteOne({_id: id}).exec()
+  }
+
+  async getAll(){
+    const result = await this.characterModel.find().exec();
+    return result;
   }
 }
