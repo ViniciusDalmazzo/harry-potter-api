@@ -1,8 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CharacterService } from './character.service';
 import { Character } from './character.model';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('Characters')
+@ApiTags('Characters')
 export class CharacterController {
   constructor(private service: CharacterService) {
   }
